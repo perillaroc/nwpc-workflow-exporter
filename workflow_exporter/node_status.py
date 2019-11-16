@@ -6,6 +6,7 @@ import logging
 import click
 import yaml
 import redis
+from dateutil.parser import parse
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -34,6 +35,9 @@ def node_status(config_file):
     owner = config["global"]["owner"]
     repo = config["global"]["repo"]
 
+    scrape_interval = config["global"]["scrape_interval"]
+    interval = parse(scrape_interval)
+
     redis_channel = f"{owner}/{repo}/status/channel"
     p = redis_client.pubsub()
     p.subscribe(redis_channel)
@@ -46,4 +50,4 @@ def node_status(config_file):
                 logger.info(data["collected_time"])
             else:
                 logger.info("type is not message: {message}".format(message=message))
-        time.sleep(1)
+        time.sleep(interval.second)
