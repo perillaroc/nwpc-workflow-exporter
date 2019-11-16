@@ -1,0 +1,18 @@
+global:
+  redis:
+    host: redis host
+    port: redis port
+    password: redis password
+    db: redis db
+
+  owner: owner
+  repo: repo
+
+nodes:
+  - name: grapes gfs gmf 00
+    system: grapes_gfs_gmf
+    path: /gmf_grapes_gfs_v2.4/00
+
+  - name: grapes gfs gmf 06
+    system: grapes_gfs_gmf
+    path: /gmf_grapes_gfs_v2.4/06
