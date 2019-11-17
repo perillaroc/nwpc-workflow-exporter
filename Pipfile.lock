@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e3666fd857961cffa35452f9e2cb130f5ea3b75d71594837f6174b3c18b24083"
+            "sha256": "015db3fd753cfdbfa2151b9e1c7f811d4dc9b64c3839dfdbeb516dad17ac7f97"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,22 @@
             ],
             "index": "pypi",
             "version": "==7.0"
+        },
+        "colorama": {
+            "hashes": [
+                "sha256:05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d",
+                "sha256:f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"
+            ],
+            "markers": "sys_platform == 'win32'",
+            "version": "==0.4.1"
+        },
+        "loguru": {
+            "hashes": [
+                "sha256:b6fad0d7aed357b5c147edcc6982606b933754338950b72d8123f48c150c5a4f",
+                "sha256:e3138bfdee5f57481a2a6e078714be20f8c71ab1ff3f07f8fb1cfa25191fed2a"
+            ],
+            "index": "pypi",
+            "version": "==0.3.2"
         },
         "python-dateutil": {
             "hashes": [
@@ -65,6 +81,14 @@
                 "sha256:30f610279e8b2578cab6db20741130331735c781b56053c59c4076da27f06b66"
             ],
             "version": "==1.13.0"
+        },
+        "win32-setctime": {
+            "hashes": [
+                "sha256:568fd636c68350bcc54755213fe01966fe0a6c90b386c0776425944a0382abef",
+                "sha256:b47e5023ec7f0b4962950902b15bc56464a380d869f59d27dbf9ab423b23e8f9"
+            ],
+            "markers": "sys_platform == 'win32'",
+            "version": "==1.0.1"
         }
     },
     "develop": {}

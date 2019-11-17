@@ -1,20 +1,17 @@
 # coding: utf-8
 import time
 import json
-import logging
+from loguru import logger
 
 import click
 import yaml
 import redis
 from dateutil.parser import parse
 
-logging.basicConfig(level=logging.DEBUG)
-
 
 @click.command("node-status")
 @click.option("--config-file", help="config file path", required=True)
 def node_status(config_file):
-    logger = logging.getLogger("node-status")
     with open(config_file) as f:
         config = yaml.safe_load(f)
 
@@ -34,20 +31,28 @@ def node_status(config_file):
 
     owner = config["global"]["owner"]
     repo = config["global"]["repo"]
+    redis_channel = f"{owner}/{repo}/status/channel"
 
     scrape_interval = config["global"]["scrape_interval"]
     interval = parse(scrape_interval)
 
-    redis_channel = f"{owner}/{repo}/status/channel"
+    nodes_config = config["nodes"]
+
     p = redis_client.pubsub()
     p.subscribe(redis_channel)
 
     while True:
         message = p.get_message()
         if message:
-            if message["type"] == "message":
-                data = json.loads(message["data"])
-                logger.info(data["collected_time"])
-            else:
+            if message["type"] != "message":
                 logger.info("type is not message: {message}".format(message=message))
+            else:
+                data = json.loads(message["data"])
+                logger.info(f"new status arrived: {data['collected_time']}")
+                status_records: list = data["status_records"]
+                for node_config in nodes_config:
+                    node_path = node_config["path"]
+                    node_record = next(x for x in status_records if x["path"] == node_path)
+                    logger.info(f"{node_path}: {node_record['status']}")
+
         time.sleep(interval.second)

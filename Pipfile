@@ -10,6 +10,7 @@ redis = "*"
 click = "*"
 pyyaml = "*"
 python-dateutil = "*"
+loguru = "*"
 
 [requires]
 python_version = "3.7"
